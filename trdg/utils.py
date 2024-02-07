@@ -145,4 +145,8 @@ def get_text_height(image_font: ImageFont, text: str) -> int:
     """
     Get the width of a string when rendered with a given font
     """
-    return image_font.getsize(text)[1]
+    _left, _top, _right, bottom = image_font.getbbox(text)
+
+    # Return `bottom` rather than `bottom - top` for consistency with output
+    # from `image_font.getsize` in Pillow < 10.
+    return bottom
